@@ -1,0 +1,30 @@
+name: publish
+
+on: ['push']
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+        
+    steps:
+        - name: Check out
+          uses: actions/checkout@v4
+
+        - name: Setup dotnet
+          uses: actions/setup-dotnet@v4
+          with:
+            dotnet-version: '8.0'
+
+        - name: Build
+          run: dotnet build
+
+        - name: Ensure browsers are installed
+          run: pwsh ./bin/Debug/net8.0/playwright.ps1 install --with-deps firefox
+          working-directory: src/App.Tests
+
+        - name: "Run App"
+          run: dotnet run --project src/App/app.csproj & # run the app in the background
+        
+        - name: test
+          run: dotnet test
+        
