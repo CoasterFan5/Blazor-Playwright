@@ -18,8 +18,8 @@ jobs:
         - name: Build
           run: dotnet build
 
-        - name: Ensure browsers are installed
-          run: pwsh ./bin/Debug/net8.0/playwright.ps1 install --with-deps firefox
+        - name: Install Browser
+          run: pwsh ./bin/Debug/net8.0/playwright.ps1 install --with-deps chromium
           working-directory: src/App.Tests
 
         - name: "Run App"
