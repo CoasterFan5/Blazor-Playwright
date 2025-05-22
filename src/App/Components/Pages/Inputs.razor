@@ -1,0 +1,34 @@
+@page "/Inputs"
+@inject ILogger<Inputs> Logger
+
+<PageTitle>Inputs</PageTitle>
+
+<input data-testid="i1" @bind=c>
+<input data-testid="i2" @bind=d>
+<button data-testid="b3" @onclick=ClickEvent>Submit</button>
+@if (!string.IsNullOrEmpty(message))
+{
+    <p data-testid="message">
+        @message
+    </p>
+}
+@code {
+    protected string? c;
+    protected string? d;
+    protected string? message;
+
+    protected async Task ClickEvent()
+    {
+        Logger.LogInformation(c);
+        Logger.LogInformation(d);
+        if (c == "c" && d == "d")
+        {
+            message = "success";
+        }
+        else
+        {
+            message = "fail";
+        }
+    }
+
+}
