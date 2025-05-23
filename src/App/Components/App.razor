@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@inject IJSRuntime JSRuntime
+@inject ILogger<App> Logger
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,11 +13,20 @@
     <link rel="stylesheet" href="app.styles.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <HeadOutlet />
+
+    <script>
+        window.blazorReady = () => {
+            const a = document.createElement(`div`);
+            a.setAttribute(`data-testid`, `blazorReady`);
+            document.body.appendChild(a)
+        }
+    </script>
 </head>
 
 <body>
     <Routes @rendermode=RenderMode.InteractiveServer />
     <script src="_framework/blazor.web.js"></script>
+
 </body>
 
 </html>
